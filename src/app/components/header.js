@@ -7,7 +7,7 @@ import { Suspense } from 'react';
 
 export default function Header(){
   const data_result = useData();
-  
+  //to check whether data is loaded
 if(data_result){
   return (
       <header>
@@ -18,8 +18,9 @@ if(data_result){
       </header>
   )
 }else{
+
   return(
-    <h3>Loading ...</h3>
+    <h3>Loading ...</h3> //if the data hasn't load yet
   )
 }
 }
