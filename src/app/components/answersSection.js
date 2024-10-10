@@ -5,12 +5,17 @@ import { useEffect } from "react";
 
 export default function AnswersSection({ data, data_result }) {
     const letters = ["A", "B", "C", "D"];
+
+    // CSS class names for different label states (active, correct, incorrect)
     const label_classes = ["active", "correct_answer_label", "incorrect_answer_label"];
     const span_classes = ["active_letter", "correct_answer_span", "incorrect_answer_span"];
 
+    // Hook to apply styles based on dark mode setting
     useEffect(() => {
         const storage_value = localStorage.getItem('isDark');
         const isDark = storage_value === "true";
+
+         // If dark mode is enabled, remove box shadows from answers
         if (isDark) {
             document.querySelectorAll(".answers").forEach((el) => {
                 el.classList.add('disable_box_shadow');
@@ -18,6 +23,7 @@ export default function AnswersSection({ data, data_result }) {
         }
     })
 
+      // Function to remove specific classes from answer options and letters
     const removeStyleFromOptions = (answer_classes, opt_letter_classes) => {
         const answers = document.querySelectorAll(".answers");
         const option_letters = document.querySelectorAll(".option_letter");
@@ -26,6 +32,9 @@ export default function AnswersSection({ data, data_result }) {
         option_letters.forEach((element) => element.classList.remove(...opt_letter_classes));
     }
 
+
+    
+    // Function to add specific classes to selected answer option and letter
     const addStyleToOptions = (opt_parent_class, opt_sibling_class) => {
         const checked_option = document.querySelector("input[type='radio']:checked");
         checked_option.parentElement.classList.add(opt_parent_class);
@@ -37,14 +46,20 @@ export default function AnswersSection({ data, data_result }) {
         addStyleToOptions(opt_parent_class, opt_sibling_class)
     }
 
+       // Handle styling when an answer is checked (show active style)
+
     const handleStyleOnCheck = () => {
         document.querySelector(".error_message").style.display = 'none';
         styleOption(["active"], ["active_letter"], "active", "active_letter");
     }
 
+    // Function to toggle visibility of the correct/incorrect icon based on answer correctness
+
     const toggleDisplayForCorrectIncorrectIcon = (isAnswerCorrect) => {
         const correct_icons = document.querySelectorAll(".correct_Incorrect_Icon");
         const checked_option_icon = document.querySelector("input[type='radio']:checked ~ .correct_Incorrect_Icon");
+
+        // Function to toggle visibility of the correct/incorrect icon based on answer correctness
         if (isAnswerCorrect) {
             correct_icons.forEach((icon) => icon.src = "/images/icon-correct.svg");
         } else {
