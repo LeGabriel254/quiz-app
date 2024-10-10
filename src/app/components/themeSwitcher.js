@@ -4,17 +4,19 @@ import Image from 'next/image';
 import { useEffect } from 'react';
 
 export default function ThemeSwitcher(){
-
+ 
+    // useEffect to check and apply theme from localStorage on initial render
     useEffect(()=>{
-        const storage_value = localStorage.getItem('isDark');
+        const storage_value = localStorage.getItem('isDark');// Retrieve the theme preference from localStorage
+        
         const isDark = storage_value === "true";
         if(isDark){
-            document.querySelector("#theme").checked = true;
+            document.querySelector("#theme").checked = true;// If dark mode, check the theme switch checkbox
             document.querySelector("#theme").classList.add("moveRight");
             switchToDarkMode();
         }
     },[])
-
+    // Function to apply dark mode styles
     const switchToDarkMode = () => {
         const root = document.documentElement;
         root.style.setProperty('--bg-mobile-mode', 'url("/images/pattern-background-mobile-dark.svg")');
@@ -32,7 +34,8 @@ export default function ThemeSwitcher(){
         })
 
     }
-
+   
+    // Function to apply light mode styles
     const switchToLightMode = () => {
         const root = document.documentElement;
         root.style.setProperty('--bg-mobile-mode', 'url("/images/pattern-background-mobile-light.svg")');
@@ -49,19 +52,23 @@ export default function ThemeSwitcher(){
             el.classList.remove('disable_box_shadow');
         })
     }
-
+    // Function to toggle between dark and light mode
     const switchDarkLight = ()=>{
         const themeIcon = document.querySelector("#theme");
         if(themeIcon.checked){
+                // If checkbox is checked, switch to dark mode
             localStorage.setItem('isDark', true)
             themeIcon.classList.add("moveRight");
-            switchToDarkMode();
+            switchToDarkMode(); // Apply dark mode styles
         }else{
             localStorage.setItem('isDark', false)
             themeIcon.classList.remove("moveRight");
             switchToLightMode();
         }  
     }
+
+    
+    // Return JSX for the theme switcher component
 
     return(
         <div className='theme_switcher_container'>
