@@ -65,20 +65,23 @@ export default function AnswersSection({ data, data_result }) {
         } else {
             correct_icons.forEach((icon) => icon.src = "/images/icon-incorrect.svg");
         }
+         // Hide all icons initially, then show the one corresponding to the checked option
         correct_icons.forEach((icon) => icon.style.visibility = "hidden");
         if (checked_option_icon) checked_option_icon.style.visibility = "visible";
     }
-
+          // Check if the submitted answer is correct
     const checkSubmittedResponse = () => {
         const checked_option = document.querySelector("input[type='radio']:checked").value;
         const selected_answer = data.questions[data_result.counter - 1].options[letters.indexOf(checked_option)];
         const correct_answer = data.questions[data_result.counter - 1].answer;
-        if (selected_answer.trim() === correct_answer.trim()) {
+        if (selected_answer.trim() === correct_answer.trim()) // return true if the answer is correct
+         {
             return true;
         }
         return false
     }
 
+    // Mark the correct answer visually
     const markCorrectAnswer = () => {
         const correct_answer = data.questions[data_result.counter - 1].answer;
         document.querySelectorAll(".answers").forEach((el) => {
@@ -88,23 +91,27 @@ export default function AnswersSection({ data, data_result }) {
             }
         })
     }
-
+      // Disable further selection of answers after submitting
     const stopSelectingOptions = () => {
         document.querySelectorAll('.radios').forEach((el) => {
             el.disabled = true;
         })
     }
+    
+    //enable answer selection for the next question
     const resumeSelectingOptions = () => {
         document.querySelectorAll('.radios').forEach((el) => {
             el.disabled = false;
         })
     }
-
+     // Handle submission of selected answer
     const onSubmitOption = () => {
         const checked_option = document.querySelector("input[type='radio']:checked");
         if (checked_option) {
             stopSelectingOptions();
             const isAnswerCorrect = checkSubmittedResponse();
+            
+                // Correct answer - style accordingly and increment score
             if (isAnswerCorrect) {
                 styleOption(label_classes, span_classes, "correct_answer_label", "correct_answer_span");
                 toggleDisplayForCorrectIncorrectIcon(isAnswerCorrect);
@@ -120,8 +127,9 @@ export default function AnswersSection({ data, data_result }) {
             document.querySelector(".error_message").style.display = 'flex';
             document.querySelector(".error_message").scrollIntoView({ behavior: 'smooth' });
         }
-    }
+    }   
 
+    // Proceed to the next question
     const nextQuestion = () => {
         data_result.setCounter(data_result.counter + 1);
         document.querySelectorAll(".radios").forEach((element) => {
@@ -133,6 +141,7 @@ export default function AnswersSection({ data, data_result }) {
         document.querySelector(".next_question").style.display = 'none';
         resumeSelectingOptions();
     }
+      //user not allowed to use space or enter on answer element
 
     useEffect(() => {
         document.querySelectorAll('.answers').forEach((el) => {
@@ -144,7 +153,7 @@ export default function AnswersSection({ data, data_result }) {
         });
     }, []); // Empty dependency array ensures this runs only once after mounting
 
-
+      // Render the answer options if data is available
 
     if (data && data_result) {
         return (
@@ -167,7 +176,7 @@ export default function AnswersSection({ data, data_result }) {
         )
     } else {
         return (
-            <h3>Loading options ...</h3>
+            <h3>Loading options ...</h3>  // Display loading text if data is still being fetched
         )
     }
 
