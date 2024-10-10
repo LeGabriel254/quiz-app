@@ -3,19 +3,19 @@
 import Image from 'next/image';
 import { useEffect } from 'react';
 
-export default function ThemeSwitcher(){
- 
+export default function ThemeSwitcher() {
+
     // useEffect to check and apply theme from localStorage on initial render
-    useEffect(()=>{
+    useEffect(() => {
         const storage_value = localStorage.getItem('isDark');// Retrieve the theme preference from localStorage
-        
+
         const isDark = storage_value === "true";
-        if(isDark){
+        if (isDark) {
             document.querySelector("#theme").checked = true;// If dark mode, check the theme switch checkbox
             document.querySelector("#theme").classList.add("moveRight");
             switchToDarkMode();
         }
-    },[])
+    }, [])
     // Function to apply dark mode styles
     const switchToDarkMode = () => {
         const root = document.documentElement;
@@ -29,12 +29,12 @@ export default function ThemeSwitcher(){
         root.style.setProperty('--error', '#fff');
         document.querySelectorAll(".sunmoonIcons")[0].src = "/images/icon-sun-light.svg";
         document.querySelectorAll(".sunmoonIcons")[1].src = "/images/icon-moon-light.svg";
-        document.querySelectorAll(".subjects, .answers").forEach((el)=>{
+        document.querySelectorAll(".subjects, .answers").forEach((el) => {
             el.classList.add('disable_box_shadow');
         })
 
     }
-   
+
     // Function to apply light mode styles
     const switchToLightMode = () => {
         const root = document.documentElement;
@@ -48,34 +48,32 @@ export default function ThemeSwitcher(){
         root.style.setProperty('--error', '#EE5454');
         document.querySelectorAll(".sunmoonIcons")[0].src = "/images/icon-sun-dark.svg";
         document.querySelectorAll(".sunmoonIcons")[1].src = "/images/icon-moon-dark.svg";
-        document.querySelectorAll(".subjects, .answers").forEach((el)=>{
+        document.querySelectorAll(".subjects, .answers").forEach((el) => {
             el.classList.remove('disable_box_shadow');
         })
     }
     // Function to toggle between dark and light mode
-    const switchDarkLight = ()=>{
+    const switchDarkLight = () => {
         const themeIcon = document.querySelector("#theme");
-        if(themeIcon.checked){
-                // If checkbox is checked, switch to dark mode
+        if (themeIcon.checked) {
+            // If checkbox is checked, switch to dark mode
             localStorage.setItem('isDark', true)
             themeIcon.classList.add("moveRight");
             switchToDarkMode(); // Apply dark mode styles
-        }else{
+        } else {
             localStorage.setItem('isDark', false)
             themeIcon.classList.remove("moveRight");
             switchToLightMode();
-        }  
+        }
     }
 
-    
     // Return JSX for the theme switcher component
-
-    return(
+    return (
         <div className='theme_switcher_container'>
-            <Image src="/images/icon-sun-dark.svg" className="sunmoonIcons" alt="sun icon" width={24} height={24}/>
+            <Image src="/images/icon-sun-dark.svg" className="sunmoonIcons" alt="sun icon" width={24} height={24} />
             <label htmlFor='theme' className='checkbox_label'>switcher</label>
-            <input type="checkbox" name="theme" className="themeIcon" id="theme" onChange={switchDarkLight}/>
-            <Image src="/images/icon-moon-dark.svg" className="sunmoonIcons" alt="moon icon" width={24} height={24}/>
+            <input type="checkbox" name="theme" className="themeIcon" id="theme" onChange={switchDarkLight} />
+            <Image src="/images/icon-moon-dark.svg" className="sunmoonIcons" alt="moon icon" width={24} height={24} />
         </div>
     )
 }
