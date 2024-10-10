@@ -11,10 +11,12 @@ import Title from "./title";
 
 export default function QuizContent(){
     const data_result = useData();
-    const searchParams = useSearchParams();
+    const searchParams = useSearchParams(); // Retrieve query parameters from the URL
     const[result, setResult] = useState(null);
 
+       // useEffect runs when data_result or searchParams change
     useEffect(()=>{
+        // Define a mapping between subjects and corresponding background CSS classes
         const bg_classes = {"HTML":"bg_html", "CSS":"bg_css", "JavaScript":"bg_js", "Accessibility":"bg_access"};
         if(data_result.data && searchParams.get('subject')){
             const filtered = data_result.data.filter((item)=>item.title === searchParams.get('subject')); 
