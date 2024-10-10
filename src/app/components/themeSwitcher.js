@@ -76,4 +76,4 @@ export default function ThemeSwitcher() {
             <Image src="/images/icon-moon-dark.svg" className="sunmoonIcons" alt="moon icon" width={24} height={24} />
         </div>
     )
-}
+};
