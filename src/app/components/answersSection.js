@@ -32,8 +32,6 @@ export default function AnswersSection({ data, data_result }) {
         option_letters.forEach((element) => element.classList.remove(...opt_letter_classes));
     }
 
-
-
     // Function to add specific classes to selected answer option and letter
     const addStyleToOptions = (opt_parent_class, opt_sibling_class) => {
         const checked_option = document.querySelector("input[type='radio']:checked");
@@ -64,7 +62,7 @@ export default function AnswersSection({ data, data_result }) {
             correct_icons.forEach((icon) => icon.src = "/images/icon-correct.svg");
         } else {
             correct_icons.forEach((icon) => icon.src = "/images/icon-incorrect.svg");
-        }.
+        }
         // Hide all icons initially, then show the one corresponding to the checked option
         correct_icons.forEach((icon) => icon.style.visibility = "hidden");
         if (checked_option_icon) checked_option_icon.style.visibility = "visible";
