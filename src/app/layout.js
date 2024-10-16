@@ -8,15 +8,15 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  
+
   return (
     <html lang="en">
       <head>
-        <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.jpg"/>
+        <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.jpg" />
       </head>
       <body>
         <DataProvider>
-          <Header/>
+          <Header />
           <main>
             {children}
           </main>
