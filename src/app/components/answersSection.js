@@ -15,7 +15,7 @@ export default function AnswersSection({ data, data_result }) {
         const storage_value = localStorage.getItem('isDark');
         const isDark = storage_value === "true";
 
-         // If dark mode is enabled, remove box shadows from answers
+        // If dark mode is enabled, remove box shadows from answers
         if (isDark) {
             document.querySelectorAll(".answers").forEach((el) => {
                 el.classList.add('disable_box_shadow');
@@ -23,7 +23,7 @@ export default function AnswersSection({ data, data_result }) {
         }
     })
 
-      // Function to remove specific classes from answer options and letters
+    // Function to remove specific classes from answer options and letters
     const removeStyleFromOptions = (answer_classes, opt_letter_classes) => {
         const answers = document.querySelectorAll(".answers");
         const option_letters = document.querySelectorAll(".option_letter");
@@ -33,7 +33,7 @@ export default function AnswersSection({ data, data_result }) {
     }
 
 
-    
+
     // Function to add specific classes to selected answer option and letter
     const addStyleToOptions = (opt_parent_class, opt_sibling_class) => {
         const checked_option = document.querySelector("input[type='radio']:checked");
@@ -46,7 +46,7 @@ export default function AnswersSection({ data, data_result }) {
         addStyleToOptions(opt_parent_class, opt_sibling_class)
     }
 
-       // Handle styling when an answer is checked (show active style)
+    // Handle styling when an answer is checked (show active style)
 
     const handleStyleOnCheck = () => {
         document.querySelector(".error_message").style.display = 'none';
@@ -64,18 +64,18 @@ export default function AnswersSection({ data, data_result }) {
             correct_icons.forEach((icon) => icon.src = "/images/icon-correct.svg");
         } else {
             correct_icons.forEach((icon) => icon.src = "/images/icon-incorrect.svg");
-        }
-         // Hide all icons initially, then show the one corresponding to the checked option
+        }.
+        // Hide all icons initially, then show the one corresponding to the checked option
         correct_icons.forEach((icon) => icon.style.visibility = "hidden");
         if (checked_option_icon) checked_option_icon.style.visibility = "visible";
     }
-          // Check if the submitted answer is correct
+    // Check if the submitted answer is correct
     const checkSubmittedResponse = () => {
         const checked_option = document.querySelector("input[type='radio']:checked").value;
         const selected_answer = data.questions[data_result.counter - 1].options[letters.indexOf(checked_option)];
         const correct_answer = data.questions[data_result.counter - 1].answer;
         if (selected_answer.trim() === correct_answer.trim()) // return true if the answer is correct
-         {
+        {
             return true;
         }
         return false
@@ -91,27 +91,27 @@ export default function AnswersSection({ data, data_result }) {
             }
         })
     }
-      // Disable further selection of answers after submitting
+    // Disable further selection of answers after submitting
     const stopSelectingOptions = () => {
         document.querySelectorAll('.radios').forEach((el) => {
             el.disabled = true;
         })
     }
-    
+
     //enable answer selection for the next question
     const resumeSelectingOptions = () => {
         document.querySelectorAll('.radios').forEach((el) => {
             el.disabled = false;
         })
     }
-     // Handle submission of selected answer
+    // Handle submission of selected answer
     const onSubmitOption = () => {
         const checked_option = document.querySelector("input[type='radio']:checked");
         if (checked_option) {
             stopSelectingOptions();
             const isAnswerCorrect = checkSubmittedResponse();
-            
-                // Correct answer - style accordingly and increment score
+
+            // Correct answer - style accordingly and increment score
             if (isAnswerCorrect) {
                 styleOption(label_classes, span_classes, "correct_answer_label", "correct_answer_span");
                 toggleDisplayForCorrectIncorrectIcon(isAnswerCorrect);
@@ -127,7 +127,7 @@ export default function AnswersSection({ data, data_result }) {
             document.querySelector(".error_message").style.display = 'flex';
             document.querySelector(".error_message").scrollIntoView({ behavior: 'smooth' });
         }
-    }   
+    }
 
     // Proceed to the next question
     const nextQuestion = () => {
@@ -141,7 +141,7 @@ export default function AnswersSection({ data, data_result }) {
         document.querySelector(".next_question").style.display = 'none';
         resumeSelectingOptions();
     }
-      //user not allowed to use space or enter on answer element
+    //user not allowed to use space or enter on answer element
 
     useEffect(() => {
         document.querySelectorAll('.answers').forEach((el) => {
@@ -153,7 +153,7 @@ export default function AnswersSection({ data, data_result }) {
         });
     }, []); // Empty dependency array ensures this runs only once after mounting
 
-      // Render the answer options if data is available
+    // Render the answer options if data is available
 
     if (data && data_result) {
         return (
